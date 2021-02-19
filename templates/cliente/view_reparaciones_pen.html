@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+<html>
+    <head>
+     
+    </head>
+
+    
+    {% block content %}
+        <body style="height: 100%;">
+            <div class="container text-center">
+                {% if  object_list %}
+                <h1> Reparaciones pendientes </h1> 
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        
+                        <tr>
+                            <th>Coche</th>
+                            <th> Matricula </th>
+                            <th>Motivo</th>
+                            <th>Fecha encargo</th>
+                            <th>Personal a cargo</th>                             
+                           
+                        </tr>
+                        {% endif %}
+                        {% load el_pagination_tags %}
+
+                        {% paginate object_list %}
+                        {% for c in object_list %}
+                        <tr>
+                            {% load static %}
+                            <th>{{ c.Coches.Marca }}</th>
+                            <th>{{ c.Coches.Matricula }}</th>
+                            <th>{{ c.Motivo }}</th> 
+                            <th>{{ c.FechaSolicitud }}</th>
+                            <th>
+                                
+                                    {% if c.Perfiles.count > 0 %}
+                                   <a> Se esta arreglando</a>
+                                    {% else %}
+                                    <a>Estamos buscando un profesional</a>
+                                    {% endif %}
+                                
+                                
+                           
+                        </tr>
+                        {% empty %}
+                        <div class="container text-center">
+                           
+                            <h2> No tienes ninguna reparacion pendiente! </h2>
+                        </div>
+                        {% endfor %}
+                </table>
+            </div>
+                <div class="d-flex justify-content-center">  {% show_pages %} </div>
+           
+          </body>
+      {% endblock %}
+</html>

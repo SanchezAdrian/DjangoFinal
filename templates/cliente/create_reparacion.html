@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+<html>
+    <head>
+    </head>
+    <body>
+
+{% block content %}
+<div class="container">
+    <div class="container text-center">
+        <div class="container text-center">
+            <h1> Indique el motivo </h21>
+        </div>
+    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto ">
+         <div class="card card-signin  my-5">
+            <div class="card-body ">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.media}}
+                {{form}}
+               
+                <p class="text-center">
+                </br>
+                <input type="submit" class="btn btn-primary brn-block" value="Confirmar"/>
+                </p>
+            </form>        
+        </div>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}
+</body>
+</html>

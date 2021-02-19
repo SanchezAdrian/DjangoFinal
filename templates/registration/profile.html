@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+<html>
+    <head>
+
+
+    </head>
+      {% block content %}
+       
+           <body class="bg-light"> 
+               
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>
+                            </th>
+                            <th> Actual </th>
+                            <th> Nuevo </th>
+                            <th>
+                            </th>
+                            <th> Actual </th>
+                            <th> Nuevo </th>
+                        </tr>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                        <tr>
+                            <th>DNI</th>
+                            <th>{{ user.perfil.Dni }}</th>
+                            <th>{{ form.Dni }}</th>
+                            <th>Nombre</th>
+                            <th>{{ user.perfil.Nombre }}</th>
+                            <th>{{ form.Nombre }}</th>
+                        </tr>
+                        <tr>
+                            <th>Apellidos</th>
+                            <th>{{ user.perfil.Apellidos }}</th>
+                            <th>{{ form.Apellidos }}</th>
+                            <th>Direccion</th>
+                            <th>{{ user.perfil.Direccion }}</th>
+                            <th>{{ form.Direccion }}</th>
+                        </tr>
+                        <tr>
+                            <th>Telefono</th>
+                            <th>{{ user.perfil.Telefono }}</th>
+                            <th>{{ form.Telefono }}</th>
+                            <th>Fecha nacimiento</th>
+                            <th>{{ user.perfil.FechaNacimiento }}</th>
+                            <th>{{ form.FechaNacimiento }}</th>
+                        </tr>
+                        <tr>                         
+                       
+                    </thead>
+                    </table>
+                    <input type="submit" onclick="return confirm('Seguro que desea cambiar los datos?');" class="btn btn-outline-primary btn-lg btn-block" value="Confirmar"/>
+                </form>
+                   
+                </body>
+
+      {% endblock %}
+   
+</html>

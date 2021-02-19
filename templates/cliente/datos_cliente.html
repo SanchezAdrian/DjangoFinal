@@ -1,0 +1,35 @@
+{% extends "cliente/base_cliente.html" %}
+<html>
+    <head>
+        
+    </head>
+      {% block content %}
+        <div class="card">
+            <div class="container lg-5  bg-light text-dark">
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>Nombre de usuario</th>
+                            <th>DNI</th>
+                            <th>NOMBRE</th>
+                            <th>APELLIDOS</th>
+                            <th>DIRECCION</th>
+                            <th>TELEFONO</th>  
+                            <th>FECHA DE NACIMIENTO</th>  
+                           
+                        </tr>
+                        <tr>
+                            <th>{{ user.username }}</th>
+                            <th>{{ user.perfil.Dni }}</th>
+                            <th>{{ user.perfil.Nombre }}</th>
+                            <th>{{ user.perfil.Apellidos }}</th>
+                            <th>{{ user.perfil.Direccion }}</th>
+                            <th>{{ user.perfil.Telefono }}</th>  
+                            <th>{{ user.perfil.FechaNacimiento }}</th>  
+                        </tr>
+                    </thead>
+
+            </div>
+        </div>
+      {% endblock %}
+</html>

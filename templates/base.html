@@ -1,24 +1,152 @@
-<div class="container">
+<html> 
+    <head>
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/starter-template/">
+        <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/bootstrap.css">
+        <link rel="stylesheet" href="/static/css/bootstrap-theme.css">
+        <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+        <meta name="theme-color" content="#563d7c">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="/css/starter-template.css" rel="stylesheet">
+    </head>
+<div>
     <br/>
-    <ul class="navbar-nav">
+    {% block nav %}
+    {%if request.user.is_authenticated %}
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        
+        <ul class="nav justify-content-end" class="sr-only">
         {%if not request.user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
+        <li class="nav-item dropdown" class="mr-auto">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Ajustes Sesion
+            </a>
+            <div class="dropdown-menu">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-link" href="{% url 'registro' %}">Registro</a>
+            </div>
+          </li>
+        {% else %}
+        <li class="nav-item dropdown" class="mr-auto">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              {{ user.username }}
+            </a>
+            <div class="dropdown-menu">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-link" href="{% url 'profile' user.perfil.id %}">Informacion cuenta</a>
+            </div>
+          </li>
+        {% endif %}
+        <li class="nav-item dropdown">
+            <a class="nav-link" href="{% url 'home' %}">Inicio</a>
         </li>
-        <p>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'registro' %}">Registro</a>
+        {%if request.user.perfil.Rol == 1 %}
+        <li class="nav-item dropdown" class="mr-auto">
+            <a class="nav-link" href="{% url 'coches_clientes' %}">Mis Coches</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Mis reparaciones
+              </a>
+            <div class="dropdown-menu">
+            <a class="nav-link" href="{% url 'reparaciones_pendientes_clientes' %}">Reparaciones pendientes</a>
+            <a class="nav-link" href="{% url 'reparaciones_hechas_clientes' %}">Reparaciones acabadas</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown" class="mr-auto">
+            <a class="nav-link" href="{% url 'create_contacto' %}">Contacto!</a>
         </li>
         {% else %}
-        <li class="nav-item">
-            <a class="nav-link" href="{url 'logout' %}">Salir</a>
+        <li class="nav-item dropdown" class="mr-auto">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Reparaciones
+            </a>
+            <div class="dropdown-menu">
+                <a class="nav-link" href="{% url 'reparaciones_mecanicos' %}">Reparaciones sin ti</a>
+                <a class="nav-link" href="{% url 'reparaciones_in' %}">Reparaciones pendientes</a>
+                <a class="nav-link" href="{% url 'reparaciones_buscar' %}">Buscar reparaciones</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="{% url 'clientes' %}">Lista clientes</a>
         </li>
         {% endif %}
-    </ul>
-    <div class="panel panel-default">
-        <div class="panel-heading">
+        
+        
+        
           
-        </div>
+    </ul>
+    </nav>
+    
+    {% endif %}
+    {% endblock %}
+    {%if request.user.is_authenticated %}
+
+    {% if user.perfil.Activado == True %}
+    <body> 
+        {% block header %}
+        {% load static %}
+            <div class="jumbotron bg-white">
+              <h1>Te lo arreglo</h1>      
+              <img src="{% static 'logoTaller.jpg' %}" style="width:150px;" class="rounded-circle float-right" style="width:150px;">
+              <p>Reparaciones de coche siempre a su disposicion.</p>
+              <img src="{% static 'logo.jpg' %}" style="width:200px;" class="rounded float-left" style="width:150px;">
+              
+            </div>
+            {% endblock %}
+        {% block content %}
+    <div id="content">
+        
+      
+       
+        {% endblock %}
     </div>
     
     </div>
+    {% else %}
+    <div>Espera a que tu cuenta este activada</div>
+    {% endif %}
+
+    {% else %}
+    {% block log %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>
+                        Oops!</h1>
+                    <h2>
+                        No has iniciado sesion!</h2>
+                    <div class="error-details">
+                        Inicia sesion para poder acceder
+                    </div>
+                    <div class="error-actions">
+                        <a href="{% url 'home' %}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                            Inicio </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+  
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% block footer %}
+    {% load static %}
+    <footer class="bg-light text-center text-lg-start">
+        <div class="container">
+          <a class="text-muted" >Pagina web de reparaciones <br>  telefono de contacto:   691819160</a>
+        </div>
+      </footer>
+        {% endblock %}        
+</body>
+        
+</html>

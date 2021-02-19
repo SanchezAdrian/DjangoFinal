@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block log %}
+<html>
+    <head>
+    </head>
+    <body class="bg-light">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto ">
+         <div class="card card-signin  my-5">
+            <div class="card-body ">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+               
+                <p>
+                <input type="submit" onclick="return confirm('Datos de creación correctos?');" class="btn btn-primary btn-block" value="Confirmar"/>
+                <p><a type="button"  class="btn btn-secondary btn-block" href="{% url 'home' %}"> Volver </a></p>
+                <p><a type="button"  class="btn btn-success btn-block" href="{% url 'login' %}"> Login </a></p>
+            </form>
+            {% if 'register' in request.GET %}
+            <p style="color: green">Usuario registrado</p>
+            {% endif %}
+        </div>
+        </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+</body>
+</html>

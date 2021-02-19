@@ -15,11 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include,path
+from django.conf.urls.static import static
+from django.conf import settings
 from nucleo.views import *
+from registration.views import *
 
 urlpatterns = [
+    path('jet/', include('jet.urls','jet')),
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
-    path('index/', index),
     path('accounts/',include('django.contrib.auth.urls')),
-    path('login/',login),
-]
+    path('accounts/',include('registration.urls')),
+    path('',include('nucleo.urls')),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
+
+

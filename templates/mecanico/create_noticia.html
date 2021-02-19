@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+<html>
+    <head>
+    </head>
+    <body>
+<div class="container">
+<br />
+{% block content %}
+<div class="container">
+    <div class="py-5 text-center">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}           
+                <div class="col-xs-12">
+                    <div class="center-block">
+                        
+                        {{form.media}}
+                        {{form}}
+                       </div>
+                </div>
+                
+                <p>
+                <input type="submit" class="btn btn-primary brn-block" value="Confirmar"/>
+            </form>        
+        
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

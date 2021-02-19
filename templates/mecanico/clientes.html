@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+<html>
+    <head>
+
+
+    </head>
+      {% block content %}
+       
+           <body class="bg-light"> 
+               
+                
+                              
+
+                                <div class="container">
+                                    <div class="row">
+                                {% for Cli in object_list %}
+                          
+                                {% if not Cli.Dni == None %}
+                                
+                                <div class="col-md-4">
+                                    <h2>{{Cli.Nombre }} {{Cli.Apellidos}}</h2>
+                                    <p>DNI: {{Cli.Dni }}</p>
+                                    <p><i class="fas fa-phone"></i>: {{Cli.Telefono }}</p>
+                                    <p>Direccion: {{Cli.Direccion }}</p>
+                                    <p>Fecha nacimiento: {{Cli.FechaNacimiento }}</p>
+                                    <p> Usuario: {{Cli.user.username}} <i class="fas fa-at"></i>: {{Cli.user.email }}</p>
+                                    <p><a class="btn btn-secondary" href="{% url 'coches_clientes_par' Cli.id %}" role="button">Ver sus coches &raquo;</a></p>
+                                  </div>
+
+
+                                {% endif %}
+                                
+                            
+                             {% endfor %}
+                                </div>
+                            </div>
+                    
+              
+                </body>
+
+      {% endblock %}
+
+   
+</html>

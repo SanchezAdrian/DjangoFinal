@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+<html>
+    <head>
+     
+    </head>
+
+    
+    {% block content %}
+        <body style="height: 100%;">            
+                <div class="container text-center">
+                    {% if  object_list %}
+                    {% with object_list.all|first as act %}
+                    {% if user.perfil == act.Perfil %}
+                    <h1> Tus coches </h1> 
+                        <div class="d-flex flex-row-reverse">
+                            <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'crear_coche'  %}"><i class="fas fa-plus"></i><i class="fas fa-car"></i> Añadir coche</a>
+                        </div>
+                          
+                  
+                    {% else %}
+                   
+                    <h1> Coches del usuario {{act.Perfil}}</h1>
+                   
+                    {% endif %}
+                    </div>
+                    {% endwith %}
+                        {% endif %}
+                        
+                          
+                                <div class="container marketing">
+                                    <div class="row">
+                                  
+                        
+                        {% for c in object_list %}
+                       
+                            {% load static %}
+                                      <div class="col-lg-4">
+                                        <img class="rounded-circle" src="{{ c.Imagen.url }}" width="140" height="140">
+                                        <h2>{{c.Marca}} {{c.Modelo}}</h2>
+                                       
+                                        <p>Matricula {{c.Matricula }}</p>
+                                        <p>Desde el {{c.FechaMatriculacion }}</p>
+                                        <div class="btn-group">
+                                            <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'detail_coche' c.id %}">ver</a>
+                                            {%if user.perfil.id == c.Perfil.id %}
+                                            <a href="{% url 'update_coche' c.id %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                            <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('Seguro que quieres borrar la noticia');" href="{% url 'delete_coche' c.id %}">Eliminar</a>  
+                                            {% endif %}
+                                           
+                                          </div>
+                                      </div> 
+                        {% empty %}
+                        <div class="container text-center">
+                           
+                            <h2> No hay coches en el sistema </h2>
+                            <div class="d-flex flex-row-reverse">
+                                <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'crear_coche'  %}"><i class="fas fa-plus"></i><i class="fas fa-car"></i> Añadir coche</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    
+                   </div>
+                   
+                </div>
+
+                
+                            
+                    
+
+       
+          </body>
+      {% endblock %}
+</html>

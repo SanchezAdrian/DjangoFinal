@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+<html>
+    <head>
+    </head>
+    <body>
+<div class="container">
+<br />
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.media}}
+                {{form}}
+               
+                <p>
+                <input type="submit" class="btn btn-primary brn-block" value="Confirmar"/>
+            </form>        
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+</body>
+</html>

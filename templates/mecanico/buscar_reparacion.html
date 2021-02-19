@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+<html>
+    <head>
+     
+    </head>
+
+    
+    {% block content %}
+        <body style="height: 100%;">
+            <div class="container text-center">  
+                <h1> Buscar reparaciones </h1> 
+            </div>
+                <div class="container">
+                        <div class="card-deck mb-3 text-center">
+                            {% load el_pagination_tags %}
+                        {% paginate object_list %}
+                        {% for c in object_list %} 
+                            <div class="card mb-4 box-shadow">
+                                    <div class="card-header">
+                                    <h4 class="my-0 font-weight-normal">{{c.user.username}}</h4>
+                                    </div>
+                                <form action="{% url 'reparaciones_fil' c.id %}" method="GET">
+                                    {% csrf_token %}
+                                <select name="cars">
+                                <option disabled selected value> -- Eliga un coche -- </option>
+                                {% for car in Coches_list %}
+                                {% if car.Perfil == c %}
+                                <option value="{{ car.id }}"> {{car.Marca}} {{car.Matricula}}</option>
+                                {% endif %}                                    
+                            {% endfor %}
+                            </select>
+                            <input type=submit value="Filtrar" class="btn btn-secondary expand"/>
+                            </form>
+                            </div>           
+                        {% endfor %}
+                        </div>  
+                </div>
+                        
+                        
+                        
+                    </thead>
+                
+                <div class="d-flex justify-content-center">  {% show_pages %} </div>
+
+            </div>
+          </body>
+      {% endblock %}
+</html>

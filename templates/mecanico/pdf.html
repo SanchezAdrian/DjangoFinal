@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <link rel="stylesheet"  href="{%  static  'css/style.css'  %}">
+  </head>
+
+
+  <body class="card">
+    <h1 class="text-center">Informacion de la reparacion</h1>
+    <div class="row text-center">
+        <div class="col-4 ">
+            <img src="{% static 'logo.jpg' %}" style="width:200px;" class="rounded float-left" style="width:150px;">
+        </div>
+        <div class="col-4">
+            Fecha de solicitud <h3>{{ reparacion.FechaSolicitud}} </h3>
+        </div>
+        <div class="col-4">
+            Fecha de arreglo <h3> {{ reparacion.FechaArreglo }} </h3>
+        </div>
+        
+    </div>
+    <br/>
+    <h1 class="text-center">Información de interes</h1>
+    <div class="container">
+        <h4 class="text-center">  Informacion del Cliente</h3>
+    </div>
+    <table class="table">
+        <tr class="thead-dark">
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Dni</th>
+            <th>Edad</th>
+        </tr>
+        <tr>
+            <td>{{reparacion.Propietario.Nombre}}</td>
+            <td>{{reparacion.Propietario.Apellidos}}</td>
+            <td>{{reparacion.Propietario.Dni}}</td>
+            <td>{{edad.years}} años </td>
+        </tr>
+    </table>
+    <div class="container">
+        <h4 class="text-center">  Informacion del Coche</h3>
+    </div>
+    <table class="table">
+        <tr class="thead-dark">
+            <th >Coche</th>
+            <th>Matricula</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Fecha</th>
+        </tr>
+        <tr>
+            <td><img src="{{ coche.Imagen.url }}" class="rounded float-left" style="width:100px;"></td>
+            <td>{{ coche.Matricula}}</td>
+            <td>{{ coche.Marca}}</td>
+            <td>{{ coche.Modelo}}</td>
+            <td>{{ coche.Modelo}}</td>
+        </tr>
+        </table>
+        <div class="container">
+            <h4 class="text-center">  Informacion de la reparacion</h3>
+        </div>
+        <table class="table">
+            <tr class="thead-dark">
+                <th>Motivo</th>
+                <th>Observaciones</th>
+            </tr>
+            <tr>
+                <td>{{ reparacion.Motivo}}</td>
+                <td>{{ reparacion.Observaciones}}</td>
+            </tr>
+            </table>
+        <div class="container">
+            <h4 class="text-center">  Informacion mecanicos a cargo</h3>
+        </div>
+        <table class="table">
+        <tr class="thead-dark">
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Dni</th>
+        </tr>
+        {% for mec in reparacion.Perfiles.all %}
+        <tr>
+            <td>{{ mec.Nombre}}</td>
+            <td>{{ mec.Apellidos}}</td>
+            <td>{{ mec.Dni}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="container">
+        <h4 class="text-center">  Informe generado {{ hoy }}</h3>
+    </div>
+  </body>
+  
+</html>

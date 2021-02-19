@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+<html>
+    <head>
+     
+    </head>
+    {% block nav-cliente %}{% endblock %}
+    
+    {% block content %}
+        <div class="card">
+            <div class="container lg-5  bg-light text-dark">
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Color</th>
+                            <th>Fecha matriculación</th>
+                            <th>Imagen</th>
+                            <th>Eliminar</th>  
+                            <th>Editar</th>  
+                           
+                        </tr>
+                        <tr>
+                            <th>Mercedes</th>
+                            <th>Citroen</th>
+                            <th>Rojo</th>
+                            <th>11/12/12</th>
+                            <th>Imagen</th>
+                            <th><button class="bi bi-trash-fill"></button>></th>  
+                            <th>Editar</th>  
+                        </tr>
+                    </thead>
+
+            </div>
+        </div>
+      {% endblock %}
+</html>

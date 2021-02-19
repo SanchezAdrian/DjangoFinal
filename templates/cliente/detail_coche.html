@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+<html>
+    <head>
+     
+    </head>
+
+    
+    {% block content %}
+        <body style="height: 100%;">
+                
+                
+                            {% load static %}
+                            <hr class="featurette-divider">
+
+                            <div class="row featurette">
+                              <div class="col-md-7">
+                                <h1 class="featurette-heading">{{coche.Matricula }} </h1>
+                                <h2 class="featurette-heading">{{coche.Marca }} <span class="text-muted">{{coche.Modelo}}</span></h2>
+                                <p class="lead">Fecha de matriculacion{{ coche.FechaMatriculacion }}</p>
+                                <p class="lead">Color {{ coche.Color }}</p>
+
+                              </div>
+                              <div class="col-md-5">
+                                <img class="featurette-image img-fluid mx-auto" src="{{ coche.Imagen.url }}" alt="Generic placeholder image">
+                              </div>
+                            </div>         
+                {%if user.perfil.id == coche.Perfil.id %}
+                <a type="button" class="btn btn-sm btn-outline-secondary"  href="{% url 'crear_reparacion' coche.id  %}">Solicitar reparación<i class="fas fa-wrench"></i></a>
+                {% endif %}
+                <a type="button" class="btn btn-sm btn-outline-secondary"  href="{% url 'reparaciones_coche' coche.id  %}">Ver reparaciones de este coche<i class="fas fa-wrench"></i></a>
+            </div>
+        </div>
+          </body>
+      {% endblock %}
+</html>

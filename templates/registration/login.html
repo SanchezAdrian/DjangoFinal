@@ -1,0 +1,40 @@
+<html>
+    {% extends "base.html" %}
+    {% block log %}
+    <body class="bg-light">
+
+        <div class="container "> 
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto ">
+           <div class="card card-signin  my-5">
+              <div class="card-body ">
+                <form action="" method="post"> {% csrf_token %}
+                    <div class="container ">  
+                    <h3 class="mb-4"> Iniciar sesión </h3> 
+                    </div>
+                    {% if form.non_field_erros %}
+                    <p style="color: red"> Usuario o contraseña incorrectos, pruebe de nuevo. </p>
+                        {% endif %}
+                    <p>
+                    <input type="text" name="username" autofocus required id="id_username"
+                    class="form-control"/>
+                    </p>
+                    <p>
+                    <input type="password" name="password" required id="id_password"
+                    class="form-control"/>
+                    </p>
+                    <p><input type="submit" class="btn btn-primary btn-block" value="Acceder"></p>
+                    <p><a type="button" class="btn btn-secondary btn-block" href="{% url 'home' %}"> Volver </a></p>
+                    <p><a type="button" onclick="return confirm('Volver atras??');" class="btn btn-success btn-block" href="{% url 'registro' %}"> Registro </a></p>
+                </form>
+    
+            </div>
+        </div>
+        </div>
+        </div>
+        
+        </div>
+    </body>        
+    {% endblock %}   
+
+</html>

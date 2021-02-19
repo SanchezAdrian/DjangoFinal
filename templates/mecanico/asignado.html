@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+<html>
+    <head>
+     
+    </head>
+
+    
+    {% block content %}
+        <body style="height: 100%;">
+            <div class="container text-center">
+                {% if  object_list %}
+                <h1> Tus reparaciones </h1> 
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Coche</th>
+                            <th>Matricula</th>
+                            <th>Motivo</th>
+                            <th>Fecha Solicitud</th>
+                            <th>Cliente</th>         
+                            <th>Terminar</th>          
+                           
+                        </tr>
+                        {% endif %}
+                        {% for c in object_list %}
+                        <tr>
+                            {% load static %}
+                            <th>{{ c.Coches.Marca }}</th>
+                            <th>{{ c.Coches.Matricula }}</th>
+                            <th>{{ c.Motivo }}</th>
+                            <th>{{ c.FechaSolicitud }}</th>
+                            <th>{{ c.Propietario.user.username }}</th>
+                            <form action="#" method="POST">
+                            {% csrf_token %}
+                            <th><a type="submit" class="btn btn-outline-primary" onclick="return confirm('El coche {{c.Coches.Marca}} esta reparado?');"  href="{% url 'reparar' c.id %}" ><i class="fas fa-check"></i></i><i class="fas fa-wrench"></i></a></th>
+                            </form>
+                        </tr>
+                        {% empty %}
+                        <div class="container text-center">
+                           
+                            <h2> No estas en ninguna reparacion, mira  <a href="{% url 'reparaciones_mecanicos' %}">estas reparaciones</a> disponibles! </h2>
+                        </div>
+                        {% endfor %}
+                    </thead>
+                    </table>
+                    </div>
+            </div>
+          </body>
+      {% endblock %}
+</html>

@@ -1,10 +1,80 @@
-<div class="container">
-    <a class="nav-link" href="{% url 'logout' %}">salir</a>
-    <br />
-    <div class="panel panel-default">
-        <div class="panel-heading">
-           Hola
-        </div>
-    </div>
+{% extends "base.html" %}
+
+<html>
+    <head>
+     
+    </head>
+
     
-    </div>
+    {% block content %}
+        <body style="height: 100%;">  
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Noticias</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              {%if  user.perfil.Rol == 2 %}
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'crear_noticia'%}">Crear noticia </a>
+              {% endif %}
+              </div>
+            </div>   
+          </div>
+          
+                    {% load el_pagination_tags %}
+                        {% paginate object_list %}                     
+                        {% for c in object_list %}
+                        {% load static %}
+                              <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                                <div class="card-body d-flex flex-column align-items-start">
+                                    <h3 class="mb-0">
+                                        <a class="text-dark" href="#">{{c.Titulo }}</a>
+                                      </h3>
+                                    <div class="mb-1 text-muted">{{c.FechaCreacion}}</div>
+                                  <strong class="d-inline-block mb-2 text-primary"> Autor: </strong>
+                                  <strong class="d-inline-block mb-4 text-primary">{{c.Creador.Nombre}} {{c.Creador.Apellidos}}</strong>
+                                  <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'detail_noticia' c.id %}">ver</a>
+                                    
+                                   
+                                    {%if  user.perfil.id == c.Creador.id %}
+                                    <a href="{% url 'update_noticia' c.id %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                    <a class="btn btn-sm btn-outline-secondary" onclick="return confirm('Seguro que quieres borrar la noticia');" href="{% url 'delete_noticia' c.id %}">Eliminar</a>  
+                                    {% endif %}
+                                   
+                                  </div>
+                                </div>
+                                <img class="card-img-right flex-auto d-md-block" src="{{ c.Foto.url }}" style="width:200px;" alt="Card image cap">
+                              </div>
+                            </div>
+                      
+                        {% empty %}
+                            <th>No existen noticias</th>
+                        {% endfor %}
+                        
+                 
+                   
+                    <div class="d-flex justify-content-center">  {% show_pages %} </div>
+
+            
+          </body>
+          
+      {% endblock %}
+ 
+      {% block log %}
+      <body class="bg-light">
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto ">
+                 <div class="card card-signin  my-5">
+ 
+                    <a type="button" class="btn btn-outline-primary btn-block" href="{% url 'login' %}">Inicia Sesión</a>
+                    <a type="button" class="btn btn-outline-secondary btn-block" href="{% url 'registro' %}">Registrate</a>
+                 </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+      {% endblock %}
+</html>
